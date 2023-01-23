@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Forum</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+    <body>
+        <h1>Welcome to my Q&A Forum</h1>
+        <hr>
+        <p><b>Firstname: </b><%= firstname %></p>
+        <p><b>Favorite Language: </b><%= lang %></p>
+        <p><b>Company: </b><%= company %></p>
+        <hr>
+        <% products.forEach(function(product) {%>
+            <p><%= product.name %></p>
+            <% if (product.name == 'Playstation 5') { %>
+                <img src='/img/ps5.jpg'>
+            <% } %>
+            <p>$ <%= product.price %></p>
+        <%})%>
+    </body>
+</html>
