@@ -6,20 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q&A Forum</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
     <body>
-        <h1>Welcome to my Q&A Forum</h1>
-        <hr>
-        <p><b>Firstname: </b><%= firstname %></p>
-        <p><b>Favorite Language: </b><%= lang %></p>
-        <p><b>Company: </b><%= company %></p>
-        <hr>
-        <% products.forEach(function(product) {%>
-            <p><%= product.name %></p>
-            <% if (product.name == 'Playstation 5') { %>
-                <img src='/img/ps5.jpg'>
-            <% } %>
-            <p>$ <%= product.price %></p>
-        <%})%>
+        <h1>Bootstrap real success</h1>
     </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="/js/boostrap.min.js"></script>
 </html>
