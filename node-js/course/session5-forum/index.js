@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const connection = require('./db/database');
 const Question = require('./db/Question');
+const Answer = require('./db/Answer');
 
 //DB connection promise
 connection
@@ -32,7 +33,6 @@ app.get('/', (request, response) => {
         response.render('index', {
             questions: questions
         });
-        console.log(questions);
     })
 });
 
@@ -50,6 +50,40 @@ app.post('/save-question', (request, response) => {
         response.redirect('/');
     })
 });
+
+app.get('/question/:id', (request, response) => {
+    let id = request.params.id
+    Question.findOne({
+        where: {id: id}
+    }).then(question => {
+        if (question) {
+            Answer.findAll({
+                where: {question_id: question.id},
+                order: [
+                    ['id', 'DESC']
+                ]
+            }).then(answers => {
+                response.render('question', {
+                    question: question,
+                    answers: answers
+                });
+            })
+        } else {
+            response.redirect('/');
+        }
+    });
+})
+
+app.post('/save-answer', (request, response) => {
+    let content = request.body.content
+    let questionId = request.body.questionId
+    Answer.create({
+        content: content,
+        question_id: questionId
+    }).then(() => {
+        response.redirect('/question/' + questionId);
+    })
+})
 
 app.listen(8080, () => {
     console.log('Server Running');
