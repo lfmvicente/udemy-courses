@@ -1,0 +1,11 @@
+body {
+    background-color: #eceff1;
+}
+
+.brand {
+    width: 80px;
+}    
+
+#question-form {
+    margin-top: 5vh;
+}
