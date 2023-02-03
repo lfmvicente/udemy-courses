@@ -1,2 +1,4 @@
 .\session3-express\node_modules\*
-.\session5-express\node_modules\*
+.\session5-forum\node_modules\*
+.\session7-blog\node_modules\*
+.\session7-blog\database\connection.js
