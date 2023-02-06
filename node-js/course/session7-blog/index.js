@@ -3,6 +3,10 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/connection');
+const categoriesController = require ('./categories/CategoriesController');
+const articlesController = require ('./articles/ArticlesController');
+const Article = require('./articles/Article');
+const Category = require('./categories/Category');
 
 //View Engine
 app.set('view engine', 'ejs');
@@ -22,6 +26,10 @@ connection.authenticate().then(() => {
 
 //Static
 app.use(express.static('public'));
+
+//Controllers
+app.use('/', categoriesController);
+app.use('/', articlesController);
 
 //Routes
 app.get('/', (request, response) => {
