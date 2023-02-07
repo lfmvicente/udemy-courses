@@ -1,8 +1,14 @@
 <%- include('partials/header.ejs') %>
+<%- include('partials/navbar') %>
 <body>
     <div class="container py-4 px-3 mx-auto">
-        <h1>Hello, Bootstrap and Webpack!</h1>
-        <button class="btn btn-primary">Primary button</button>
+        <h1>Welcome to my Blog</h1>
+        <br>
+        <hr>
+          <a class="btn btn-primary" href="/admin/categories/new">New Category</a>
+        <br>
+        <hr>
+          <a class="btn btn-primary" href="/admin/categories">Categories List</a>
       </div>
 </body>
 <%- include('partials/footer.ejs') %>
