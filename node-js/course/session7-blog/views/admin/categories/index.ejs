@@ -3,6 +3,7 @@
 <div class="container">
     <hr>
     <h2>Categories</h2>
+    <a class="btn btn-success" href="/admin/categories/new">New Category</a>
     <hr>
     <table class="table table-bordered">
         <thead>
@@ -19,10 +20,26 @@
                     <th><%= category.id %></th>
                     <th><%= category.title %></th>
                     <th><%= category.slug %></th>
+                    <th>
+                        <button class="btn btn-warning">Edit</button>
+                        <!--this passa o elemento html que possui o evento -->
+                        <form method="POST" action="/categories/delete" style="display: inline" onsubmit="confirmDelete(event, this)">
+                            <input type="hidden" name="id" value="<%= category.id%>">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </th>
                 </tr>
             <% }) %>
         </tbody>
     </table>
-    <a class="btn btn-primary" href="/admin/categories/new">New Category</a>
 </div>
 <%- include('../../partials/footer') %>
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault()
+        let choose = confirm("Are you sure?");
+        if (choose) {
+            form.submit();
+        }
+    }
+</script>
