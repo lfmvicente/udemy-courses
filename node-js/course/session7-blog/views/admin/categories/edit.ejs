@@ -4,13 +4,14 @@
     <br>
     <div class="card">
         <div class="card-header">
-            <h2>Add new Category</h2>
+            <h2>Update Category</h2>
         </div>
         <div class="card-body">
-            <form method="POST" action="/categories/create">
-                <input class="form-control" type="text" name="title" placeholder="Category title">
+            <form method="POST" action="/categories/update">
+                <input class="form-control" type="text" name="title" value="<%= category.title%>">
+                <input type="hidden" name="id" value="<%= category.id%>">
                 <br>
-                <button class="btn btn-success">Register</button>
+                <button class="btn btn-success">Update</button>
             </form>
         </div>
     </div>

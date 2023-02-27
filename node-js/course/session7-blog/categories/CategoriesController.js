@@ -8,14 +8,14 @@ router.get('/admin/categories/new', (request, response) => {
     response.render('admin/categories/new');
 });
 
-router.post('/categories/save', (request, response) => {
+router.post('/categories/create', (request, response) => {
     let title = request.body.title;
     if (title) {
         Category.create({
             title: title,
             slug: slugify(title)
         }).then(() => {
-            response.redirect('/');
+            response.redirect('/admin/categories');
         })
     } else {
         response.redirect('/admin/categories/new');
@@ -47,5 +47,43 @@ router.post('/categories/delete', (request, response) => {
         response.redirect('/admin/categories')
     }
 })
+
+router.get('/admin/categories/edit/:id', (req, res) => {
+    let id = req.params.id
+    if (!isNaN(id)) {
+        Category.findByPk(id).then(category => {
+            if (category != undefined) {
+                res.render('admin/categories/edit', {
+                    category: category
+                })
+            } else {
+                res.redirect('/admin/categories');
+            }
+        }).catch(erro => {
+            res.redirect('/admin/categories');    
+        })
+    } else {
+        res.redirect('/admin/categories');
+    }
+})
+
+router.post('/categories/update', (request, response) => {
+    let title = request.body.title;
+    let id = request.body.id;
+    if (id && title) {
+        Category.update({
+            title: title,
+            slug: slugify(title)
+        },{
+            where: {
+                id : id
+            }
+        }).then(() => {
+            response.redirect('/admin/categories');git 
+        })
+    } else {
+        response.redirect('/admin/categories/new');
+    }
+});
 
 module.exports = router;
