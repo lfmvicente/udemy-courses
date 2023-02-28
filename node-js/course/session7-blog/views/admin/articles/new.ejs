@@ -1,0 +1,25 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h2>Add new Article</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/articles/create">
+                <input class="form-control" type="text" name="title" placeholder="Article title">
+                <br>
+                <textarea class="form-control" placeholder="Content" name="content" id="article"></textarea>
+                <br>
+                <button class="btn btn-success">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('../../partials/footer.ejs') %>
+
+<!-- Script element sourcing TinyMCE -->
+<script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+<!-- Script element sourcing the TinyMCE configuration -->
+<script type="application/javascript" src= "/js/tinymce-config.js"></script>

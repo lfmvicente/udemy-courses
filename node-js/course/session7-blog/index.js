@@ -8,6 +8,9 @@ const articlesController = require ('./articles/ArticlesController');
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
 
+//TinyMce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+
 //View Engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
