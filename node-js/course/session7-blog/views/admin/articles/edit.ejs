@@ -4,22 +4,23 @@
     <br>
     <div class="card">
         <div class="card-header">
-            <h2>Add new Article</h2>
+            <h2>Update Article</h2>
         </div>
         <div class="card-body">
-            <form method="POST" action="/articles/create">
-                <input class="form-control" type="text" name="title" placeholder="Article title">
+            <form method="POST" action="/articles/update">
+                <input class="form-control" type="text" name="title" value="<%= article.title %>">
                 <br>
                 <label>Category</label>
-                <select name="category" class="form-control">
+                <select name="categoryId" class="form-control">
                     <% categories.forEach((category) => { %>
                         <option value="<%= category.id %>"><%=category.title %> </option>
                     <% }) %>
                 </select>
                 <br>
-                <textarea class="form-control" placeholder="Content" name="content" id="article"></textarea>
+                <textarea class="form-control" placeholder="Content" name="content" id="article"><%= article.content %></textarea>
+                <input type="hidden" name="id" value="<%= article.id%>">
                 <br>
-                <button class="btn btn-success">Register</button>
+                <button class="btn btn-success">Update</button>
             </form>
         </div>
     </div>

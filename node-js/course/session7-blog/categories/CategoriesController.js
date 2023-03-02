@@ -79,7 +79,7 @@ router.post('/categories/update', (request, response) => {
                 id : id
             }
         }).then(() => {
-            response.redirect('/admin/categories');git 
+            response.redirect('/admin/categories');
         })
     } else {
         response.redirect('/admin/categories/new');
