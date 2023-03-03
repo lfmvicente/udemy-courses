@@ -1,10 +1,13 @@
 const express = require('express');
+
 const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/connection');
+
 const categoriesController = require ('./categories/CategoriesController');
 const articlesController = require ('./articles/ArticlesController');
+
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
 
@@ -36,7 +39,34 @@ app.use('/', articlesController);
 
 //Routes
 app.get('/', (request, response) => {
-    response.render("index")
+    Article.findAll({
+        order: [
+            ['id', 'DESC']
+        ]
+    }).then(articles => {
+        Category.findAll().then(categories => {
+            response.render("index", {articles: articles, categories: categories})
+        })
+    })
+})
+
+app.get('/:slug', (request, response) => {
+    let slug = request.params.slug;
+    Article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then(article => {
+        if (article) {
+            Category.findAll().then(categories => {
+                response.render("article", {article: article, categories: categories})
+            })
+        } else {
+            response.redirect('/')
+        }
+    }).catch(erro => {
+        response.redirect('/')
+    })
 })
 
 app.listen(8080, () => {

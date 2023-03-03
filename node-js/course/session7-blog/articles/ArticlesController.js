@@ -29,7 +29,9 @@ router.post('/articles/create', (request, response) => {
 });
 
 router.get('/admin/articles', (request, response) => {
-    Article.findAll().then(articles => {
+    Article.findAll({
+        include: [{model: Category}] // join com a tabela de categories
+    }).then(articles => {
         response.render('admin/articles/index', {articles: articles})
     })
 });
