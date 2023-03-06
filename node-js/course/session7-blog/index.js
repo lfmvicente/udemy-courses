@@ -69,6 +69,27 @@ app.get('/:slug', (request, response) => {
     })
 })
 
+app.get('/category/:slug', (request, response) => {
+    let slug = request.params.slug
+    Category.findOne({
+        where: {
+            slug: slug
+        },
+        include: [{model: Article}]
+    }).then(category => {
+        if (category) {
+            
+            Category.findAll().then(categories => {
+                response.render('index', {articles: category.articles, categories:categories})
+            })
+        } else {
+            response.redirect('/')
+        }
+    }).catch(erro => {
+        response.redirect('/')
+    })
+})
+
 app.listen(8080, () => {
     console.log('Server Online')
 })
