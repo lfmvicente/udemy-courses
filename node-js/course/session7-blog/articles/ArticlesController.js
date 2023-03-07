@@ -100,4 +100,43 @@ router.post('/articles/delete', (request, response) => {
     }
 })
 
+router.get('/articles/page/:number', (request, response) => {
+    let page = request.params.number
+    let offset = 0;
+    if (isNaN(page) || page == 1) {
+        offset = 0;
+    } else {
+        offset = (parseInt(page) * 4) - 4;
+    }
+
+    Article.findAndCountAll(
+        {
+            limit: 4,
+            offset: offset,
+            order: [
+                ['id', 'DESC']
+            ]
+        }
+    ).then(articles => {
+
+        let nextPage = true;
+        if (offset + 4 >= articles.count) {
+            nextPage = false;
+        }
+
+        let result = {
+            page: parseInt(page),
+            nextPage: nextPage,
+            articles: articles
+        }
+
+        Category.findAll().then(categories =>{
+            response.render('admin/articles/page', {
+                result: result,
+                categories: categories
+            })
+        })
+    })
+})
+
 module.exports = router;
