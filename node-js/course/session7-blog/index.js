@@ -7,9 +7,11 @@ const connection = require('./database/connection');
 
 const categoriesController = require ('./categories/CategoriesController');
 const articlesController = require ('./articles/ArticlesController');
+const usersController = require('./users/UsersController');
 
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
+const User = require('./users/User');
 
 //TinyMce
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
@@ -36,6 +38,7 @@ app.use(express.static('public'));
 //Controllers
 app.use('/', categoriesController);
 app.use('/', articlesController);
+app.use('/', usersController);
 
 //Routes
 app.get('/', (request, response) => {
