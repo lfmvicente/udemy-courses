@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 
 const path = require('path');
 const app = express();
@@ -12,6 +13,29 @@ const usersController = require('./users/UsersController');
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
 const User = require('./users/User');
+
+//Session
+app.use(session({
+    secret: "aaabbbcccdddeeefffggg",
+    cookie: {maxAge: 30000}
+}))
+
+app.get('/session', (req, res) => {
+    req.session.practice = 'practice course'
+    req.session.email = 'test@mail.com'
+    req.session.user = {
+        username: 'test',
+        password: 'xxxx' 
+    }
+    res.send('Session created')
+})
+
+app.get('/read', (req, res) => {
+    res.json({
+        practice: req.session.practice,
+        user: req.session.user
+    })
+})
 
 //TinyMce
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));

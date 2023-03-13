@@ -3,6 +3,7 @@ const router = express.Router();
 const Category = require('../categories/Category');
 const Article = require('./Article');
 const slugify = require('slugify');
+const adminAuth = require('../middlewares/adminAuth')
 
 router.get('/admin/articles/new', (request, response) => {
     Category.findAll().then(categories => {
@@ -10,7 +11,7 @@ router.get('/admin/articles/new', (request, response) => {
     })
 });
 
-router.post('/articles/create', (request, response) => {
+router.post('/articles/create', adminAuth, (request, response) => {
     let title = request.body.title;
     let content = request.body.content;
     let categoryId = request.body.category;
@@ -28,7 +29,7 @@ router.post('/articles/create', (request, response) => {
     }
 });
 
-router.get('/admin/articles', (request, response) => {
+router.get('/admin/articles', adminAuth, (request, response) => {
     Article.findAll({
         include: [{model: Category}] // join com a tabela de categories
     }).then(articles => {
@@ -36,7 +37,7 @@ router.get('/admin/articles', (request, response) => {
     })
 });
 
-router.get('/admin/articles/edit/:articleId', (request, response) => {
+router.get('/admin/articles/edit/:articleId', adminAuth, (request, response) => {
     let articleId = request.params.articleId
     if (!isNaN(articleId)) {
         Article.findByPk(articleId).then(article => {
@@ -58,7 +59,7 @@ router.get('/admin/articles/edit/:articleId', (request, response) => {
     }
 })
 
-router.post('/articles/update', (request, response) => {
+router.post('/articles/update', adminAuth, (request, response) => {
     let title = request.body.title;
     let id = request.body.id;
     let content = request.body.content;
@@ -81,7 +82,7 @@ router.post('/articles/update', (request, response) => {
     }
 })
 
-router.post('/articles/delete', (request, response) => {
+router.post('/articles/delete', adminAuth, (request, response) => {
     let id = request.body.id
     if (id) {
         if (!isNaN(id)) { //verifica se o id é numérico
