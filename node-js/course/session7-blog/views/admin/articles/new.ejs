@@ -10,6 +10,13 @@
             <form method="POST" action="/articles/create">
                 <input class="form-control" type="text" name="title" placeholder="Article title">
                 <br>
+                <label>Category</label>
+                <select name="category" class="form-control">
+                    <% categories.forEach((category) => { %>
+                        <option value="<%= category.id %>"><%=category.title %> </option>
+                    <% }) %>
+                </select>
+                <br>
                 <textarea class="form-control" placeholder="Content" name="content" id="article"></textarea>
                 <br>
                 <button class="btn btn-success">Register</button>

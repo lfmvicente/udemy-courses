@@ -1,0 +1,44 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<div class="container">
+    <hr>
+    <h2>Users</h2>
+    <a class="btn btn-success" href="/admin/users/create">New User</a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <th><%= user.id %></th>
+                    <th><%= user.email %></th>
+                    <th>
+                        <a class="btn btn-warning" href="/admin/users/edit/<%= user.id%>">Edit</a>
+                        <!--this passa o elemento html que possui o evento -->
+                        <form method="POST" action="/users/delete" style="display: inline" onsubmit="confirmDelete(event, this)">
+                            <input type="hidden" name="id" value="<%= user.id%>">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </th>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+<%- include('../../partials/footer') %>
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault()
+        let choose = confirm("Are you sure?");
+        if (choose) {
+            form.submit();
+        }
+    }
+</script>
