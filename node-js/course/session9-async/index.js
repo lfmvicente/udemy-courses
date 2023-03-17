@@ -1,26 +1,48 @@
-function sendMail(content, receiver, error, callback)
-{
-    setTimeout(() => {
-        if (error) {
-            callback(receiver, "Email error")
-        } else {
-            console.log(
-                `
-                To: ${receiver}
-                ---------------------
-                ${content}
-                `
-            )
-            callback(receiver)
-        }
-    }, 8000);
+function getId(){
+    return new Promise((resolve, reject) => {
+        resolve(10)
+    })
 }
 
-sendMail("Hello, welcome to my async first test", "luis@mail.com", true, (receiver, error) => {
-    if (!error) {
-        console.log(`Email Sent to ${receiver} with success`);
-    } else {
-        console.log(`Email not Sent to ${receiver}`);
-    }
+function searchEmail(id){
+    return new Promise((resolve, reject) => {
+        resolve('luis@mail.com')
+    })
+}
+
+function send(content, email, error){
+    return new Promise((resolve, reject) => {
+        if (!error) {
+            resolve('Email sent')
+        }
+        
+        reject('Email not sent')
+    })
+}
+
+//Promise Hell
+/*console.log('Start')
+getId().then((id) => {
+    searchEmail(id).then((email) => {
+        send('Hello', email).then((content) => {
+            console.log(`${content} to ${email} with id ${id}`)
+        }).catch(error => {
+            console.log(error);
+        })
+   })
 })
-console.log('Start Execution');
+console.log("End")*/
+
+//Promise Hell refactor with async/await
+async function sendEmail(){
+    let userId = await getId()
+    let userEmail = await searchEmail(userId)
+
+    try {
+        await send('Hello', userEmail, true)
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+sendEmail()
