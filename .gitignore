@@ -1,0 +1,6 @@
+.\course\session3-express\node_modules\*
+.\course\session5-forum\node_modules\*
+.\course\session7-blog\node_modules\*
+.\course\session7-blog\database\connection.js
+.\.vscode
+
