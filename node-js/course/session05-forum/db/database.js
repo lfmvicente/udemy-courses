@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 
-const connection = new sequelize('forum', 'root', 'localhost', {
-    host: 'localhost',
+const connection = new sequelize('forum', 'dev', 'myapp', {
+    host: 'db',
     dialect: 'mysql'
 });
 
