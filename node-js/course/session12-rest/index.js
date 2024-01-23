@@ -57,13 +57,13 @@ let db = {
             id: 1,
             name: "Luis",
             email: "mail@api.com",
-            pwd: "xxxx"
+            password: "xxxx"
         },
         {
             id: 2,
             name: "Felipe",
             email: "mail2@api.com",
-            pwd: "zzzz"
+            password: "zzzz"
         }
     ]
 }
@@ -144,12 +144,12 @@ app.put("/game/:id", (req, res) => {
 })
 
 app.post("/auth", (req, res) => {
-    let {email, pwd} = req.body;
+    let {email, password} = req.body;
 
     if (email) {
         let user = db.users.find(user => user.email == email);
         if (user) {
-            if (user.pwd == pwd) {
+            if (user.password == password) {
 
                 jwt.sign(
                     {
