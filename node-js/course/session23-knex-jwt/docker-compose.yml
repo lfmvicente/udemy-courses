@@ -1,0 +1,29 @@
+version: "3" ## especifica a versão do docker-compose file
+
+services: ## Define um serviço
+  app: ## nome do serviço
+    build: . ## localização do dockerfile
+    # command: npm start ## comando a executar
+    ports:
+      - "8686:8686" ## redirecionamento de porta quando chegar alguma requisição na porta 3000 chama o container na porta 3000
+    volumes:
+      - .:/usr/app ## monitoro a pasta atual . e envio as alterações para /usr/app
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+volumes:
+  dbdata:
